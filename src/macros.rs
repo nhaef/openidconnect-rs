@@ -241,12 +241,20 @@ macro_rules! new_secret_type {
             pub fn new(s: $type) -> Self {
                 $name(s)
             }
+
             #[doc = $secret_doc]
             ///
             /// # Security Warning
             ///
             /// Leaking this value may compromise the security of the OAuth2 flow.
             pub fn secret(&self) -> &$type { &self.0 }
+
+            #[doc = $secret_doc]
+            ///
+            /// # Security Warning
+            ///
+            /// Leaking this value may compromise the security of the OAuth2 flow.
+            pub fn into_secret(self) -> $type { self.0 }
         }
         impl Debug for $name {
             fn fmt(&self, f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
